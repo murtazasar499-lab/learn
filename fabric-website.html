@@ -1,0 +1,810 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Luxe Fabrics - Premium Textiles</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700;800&family=Lora:wght@400;500&display=swap');
+
+        :root {
+            --primary: #8B6F47;
+            --secondary: #D4A574;
+            --accent: #2C2C2C;
+            --light-bg: #FAF7F2;
+            --white: #FFFFFF;
+            --text: #3A3A3A;
+        }
+
+        body {
+            font-family: 'Lora', serif;
+            color: var(--text);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        /* Navigation */
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1.5rem 5%;
+            background: var(--white);
+            box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .logo {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: var(--primary);
+            letter-spacing: 1px;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2.5rem;
+            list-style: none;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: var(--text);
+            font-weight: 500;
+            font-size: 0.95rem;
+            position: relative;
+            transition: color 0.3s ease;
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--secondary);
+            transition: width 0.3s ease;
+        }
+
+        .nav-links a:hover {
+            color: var(--primary);
+        }
+
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+
+        .nav-links a.active {
+            color: var(--primary);
+        }
+
+        .nav-links a.active::after {
+            width: 100%;
+        }
+
+        /* Pages */
+        .page {
+            display: none;
+            animation: fadeIn 0.6s ease-in;
+        }
+
+        .page.active {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Home Page */
+        .hero {
+            background: linear-gradient(135deg, #8B6F47 0%, #A08860 100%);
+            color: var(--white);
+            padding: 6rem 5%;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -10%;
+            width: 600px;
+            height: 600px;
+            background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, transparent 70%);
+            border-radius: 50%;
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 2;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .hero h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: 3.5rem;
+            margin-bottom: 1rem;
+            font-weight: 800;
+            letter-spacing: -1px;
+            animation: slideDown 0.8s ease-out;
+        }
+
+        .hero p {
+            font-size: 1.2rem;
+            margin-bottom: 2rem;
+            opacity: 0.95;
+            animation: slideUp 0.8s ease-out 0.2s both;
+        }
+
+        .cta-button {
+            display: inline-block;
+            padding: 1rem 2.5rem;
+            background: var(--secondary);
+            color: var(--accent);
+            text-decoration: none;
+            border-radius: 50px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            animation: slideUp 0.8s ease-out 0.4s both;
+            border: none;
+            cursor: pointer;
+            font-family: 'Lora', serif;
+            font-size: 1rem;
+        }
+
+        .cta-button:hover {
+            background: var(--white);
+            transform: translateY(-3px);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+        }
+
+        @keyframes slideDown {
+            from {
+                opacity: 0;
+                transform: translateY(-30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes slideUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Featured Products */
+        .featured-section {
+            padding: 5rem 5%;
+            background: var(--light-bg);
+        }
+
+        .section-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 2.5rem;
+            text-align: center;
+            margin-bottom: 3rem;
+            color: var(--primary);
+        }
+
+        .products-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .product-card {
+            background: var(--white);
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+            transition: all 0.3s ease;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .product-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 12px 30px rgba(0,0,0,0.15);
+        }
+
+        .product-image {
+            height: 280px;
+            background: linear-gradient(135deg, #E8D5C4 0%, #D4A574 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 3rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .product-image::after {
+            content: '';
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background: repeating-linear-gradient(
+                45deg,
+                transparent,
+                transparent 10px,
+                rgba(255,255,255,0.05) 10px,
+                rgba(255,255,255,0.05) 20px
+            );
+        }
+
+        .product-info {
+            padding: 1.5rem;
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .product-name {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.3rem;
+            margin-bottom: 0.5rem;
+            color: var(--primary);
+        }
+
+        .product-desc {
+            font-size: 0.9rem;
+            color: #666;
+            margin-bottom: 1rem;
+            flex: 1;
+        }
+
+        .product-price {
+            font-weight: 600;
+            color: var(--accent);
+            font-size: 1.1rem;
+        }
+
+        /* About Page */
+        .about-section {
+            padding: 4rem 5%;
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        .about-header {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+
+        .about-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 3rem;
+            align-items: center;
+            margin: 3rem 0;
+        }
+
+        .about-image {
+            width: 100%;
+            height: 400px;
+            background: linear-gradient(135deg, #8B6F47 0%, #D4A574 100%);
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 5rem;
+        }
+
+        .about-text h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: 2rem;
+            color: var(--primary);
+            margin-bottom: 1.5rem;
+        }
+
+        .about-text p {
+            margin-bottom: 1.5rem;
+            line-height: 1.8;
+            font-size: 1rem;
+        }
+
+        .values-list {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2rem;
+            margin: 2rem 0;
+        }
+
+        .value-item {
+            padding: 1.5rem;
+            background: var(--light-bg);
+            border-radius: 8px;
+            border-left: 4px solid var(--secondary);
+        }
+
+        .value-item h3 {
+            color: var(--primary);
+            margin-bottom: 0.5rem;
+        }
+
+        /* Contact Page */
+        .contact-section {
+            padding: 4rem 5%;
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .contact-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 3rem;
+            margin-top: 3rem;
+        }
+
+        .contact-info {
+            display: flex;
+            flex-direction: column;
+            gap: 2rem;
+        }
+
+        .contact-item {
+            padding: 1.5rem;
+            background: var(--light-bg);
+            border-radius: 8px;
+        }
+
+        .contact-item h3 {
+            color: var(--primary);
+            margin-bottom: 0.5rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .contact-item p {
+            color: #666;
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            color: var(--primary);
+            font-weight: 600;
+        }
+
+        .form-group input,
+        .form-group textarea {
+            width: 100%;
+            padding: 0.8rem;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-family: 'Lora', serif;
+            font-size: 1rem;
+            transition: border-color 0.3s ease;
+        }
+
+        .form-group input:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: var(--secondary);
+        }
+
+        .form-group textarea {
+            resize: vertical;
+            min-height: 120px;
+        }
+
+        .submit-btn {
+            width: 100%;
+            padding: 1rem;
+            background: var(--primary);
+            color: var(--white);
+            border: none;
+            border-radius: 4px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            font-family: 'Lora', serif;
+            transition: background 0.3s ease;
+        }
+
+        .submit-btn:hover {
+            background: var(--accent);
+        }
+
+        /* Footer */
+        footer {
+            background: var(--accent);
+            color: var(--white);
+            padding: 2rem 5%;
+            text-align: center;
+            margin-top: 3rem;
+        }
+
+        footer p {
+            opacity: 0.8;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .nav-links {
+                gap: 1.5rem;
+            }
+
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+
+            .about-grid,
+            .contact-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .values-list {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav>
+        <div class="logo">Luxe Fabrics</div>
+        <ul class="nav-links">
+            <li><a href="#" data-page="home" class="nav-link active">Home</a></li>
+            <li><a href="#" data-page="products" class="nav-link">Products</a></li>
+            <li><a href="#" data-page="about" class="nav-link">About</a></li>
+            <li><a href="#" data-page="contact" class="nav-link">Contact</a></li>
+        </ul>
+    </nav>
+
+    <!-- HOME PAGE -->
+    <div id="home" class="page active">
+        <!-- Hero Section -->
+        <section class="hero">
+            <div class="hero-content">
+                <h1>Premium Fabrics for Elegant Living</h1>
+                <p>Discover our exquisite collection of handpicked textiles from around the world</p>
+                <button class="cta-button" onclick="showPage('products')">Explore Collection</button>
+            </div>
+        </section>
+
+        <!-- Featured Products -->
+        <section class="featured-section">
+            <h2 class="section-title">Featured Products</h2>
+            <div class="products-grid">
+                <div class="product-card">
+                    <div class="product-image">🧵</div>
+                    <div class="product-info">
+                        <div class="product-name">Silk Charmeuse</div>
+                        <div class="product-desc">Luxurious smooth silk with a lustrous finish. Perfect for evening wear.</div>
+                        <div class="product-price">$45 per yard</div>
+                    </div>
+                </div>
+
+                <div class="product-card">
+                    <div class="product-image">🎨</div>
+                    <div class="product-info">
+                        <div class="product-name">Linen Blend</div>
+                        <div class="product-desc">Breathable and durable linen blend ideal for home decor and apparel.</div>
+                        <div class="product-price">$28 per yard</div>
+                    </div>
+                </div>
+
+                <div class="product-card">
+                    <div class="product-image">✨</div>
+                    <div class="product-info">
+                        <div class="product-name">Cotton Sateen</div>
+                        <div class="product-desc">Premium cotton with a silky sheen. Great for quilting and sewing.</div>
+                        <div class="product-price">$22 per yard</div>
+                    </div>
+                </div>
+
+                <div class="product-card">
+                    <div class="product-image">🌊</div>
+                    <div class="product-info">
+                        <div class="product-name">Wool Tweed</div>
+                        <div class="product-desc">Classic wool tweed with intricate weave patterns for tailoring.</div>
+                        <div class="product-price">$52 per yard</div>
+                    </div>
+                </div>
+
+                <div class="product-card">
+                    <div class="product-image">💎</div>
+                    <div class="product-info">
+                        <div class="product-name">Velvet Royal</div>
+                        <div class="product-desc">Sumptuous velvet fabric with rich color depth and soft texture.</div>
+                        <div class="product-price">$65 per yard</div>
+                    </div>
+                </div>
+
+                <div class="product-card">
+                    <div class="product-image">🏠</div>
+                    <div class="product-info">
+                        <div class="product-name">Canvas Organic</div>
+                        <div class="product-desc">Eco-friendly organic cotton canvas for sustainable fashion.</div>
+                        <div class="product-price">$18 per yard</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <!-- PRODUCTS PAGE -->
+    <div id="products" class="page">
+        <section class="featured-section">
+            <h2 class="section-title">Our Full Collection</h2>
+            <div class="products-grid">
+                <div class="product-card">
+                    <div class="product-image">🧵</div>
+                    <div class="product-info">
+                        <div class="product-name">Silk Charmeuse</div>
+                        <div class="product-desc">Luxurious smooth silk with a lustrous finish. Perfect for evening wear.</div>
+                        <div class="product-price">$45 per yard</div>
+                    </div>
+                </div>
+
+                <div class="product-card">
+                    <div class="product-image">🎨</div>
+                    <div class="product-info">
+                        <div class="product-name">Linen Blend</div>
+                        <div class="product-desc">Breathable and durable linen blend ideal for home decor and apparel.</div>
+                        <div class="product-price">$28 per yard</div>
+                    </div>
+                </div>
+
+                <div class="product-card">
+                    <div class="product-image">✨</div>
+                    <div class="product-info">
+                        <div class="product-name">Cotton Sateen</div>
+                        <div class="product-desc">Premium cotton with a silky sheen. Great for quilting and sewing.</div>
+                        <div class="product-price">$22 per yard</div>
+                    </div>
+                </div>
+
+                <div class="product-card">
+                    <div class="product-image">🌊</div>
+                    <div class="product-info">
+                        <div class="product-name">Wool Tweed</div>
+                        <div class="product-desc">Classic wool tweed with intricate weave patterns for tailoring.</div>
+                        <div class="product-price">$52 per yard</div>
+                    </div>
+                </div>
+
+                <div class="product-card">
+                    <div class="product-image">💎</div>
+                    <div class="product-info">
+                        <div class="product-name">Velvet Royal</div>
+                        <div class="product-desc">Sumptuous velvet fabric with rich color depth and soft texture.</div>
+                        <div class="product-price">$65 per yard</div>
+                    </div>
+                </div>
+
+                <div class="product-card">
+                    <div class="product-image">🏠</div>
+                    <div class="product-info">
+                        <div class="product-name">Canvas Organic</div>
+                        <div class="product-desc">Eco-friendly organic cotton canvas for sustainable fashion.</div>
+                        <div class="product-price">$18 per yard</div>
+                    </div>
+                </div>
+
+                <div class="product-card">
+                    <div class="product-image">🌸</div>
+                    <div class="product-info">
+                        <div class="product-name">Floral Jacquard</div>
+                        <div class="product-desc">Intricate jacquard weave with beautiful floral patterns.</div>
+                        <div class="product-price">$38 per yard</div>
+                    </div>
+                </div>
+
+                <div class="product-card">
+                    <div class="product-image">⭐</div>
+                    <div class="product-info">
+                        <div class="product-name">Stretch Crepe</div>
+                        <div class="product-desc">Versatile crepe fabric with excellent stretch and recovery.</div>
+                        <div class="product-price">$32 per yard</div>
+                    </div>
+                </div>
+
+                <div class="product-card">
+                    <div class="product-image">🎭</div>
+                    <div class="product-info">
+                        <div class="product-name">Brocade Gold</div>
+                        <div class="product-desc">Rich brocade fabric with gold threading for special occasions.</div>
+                        <div class="product-price">$72 per yard</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <!-- ABOUT PAGE -->
+    <div id="about" class="page">
+        <section class="about-section">
+            <div class="about-header">
+                <h2 class="section-title">About Luxe Fabrics</h2>
+                <p style="font-size: 1.1rem; color: #666; margin-top: 1rem;">Crafting excellence in textiles since 2010</p>
+            </div>
+
+            <div class="about-grid">
+                <div class="about-image">🏢</div>
+                <div class="about-text">
+                    <h2>Our Story</h2>
+                    <p>Luxe Fabrics was founded with a simple mission: to bring the finest textiles from around the world to discerning customers who appreciate quality and craftsmanship.</p>
+                    <p>For over a decade, we've been carefully curating collections that blend traditional weaving techniques with contemporary design sensibilities. Every fabric in our collection is hand-selected for its superior quality, unique character, and sustainability.</p>
+                </div>
+            </div>
+
+            <div class="about-grid">
+                <div class="about-text">
+                    <h2>Our Values</h2>
+                    <div class="values-list">
+                        <div class="value-item">
+                            <h3>Quality</h3>
+                            <p>We source only the finest materials from trusted suppliers worldwide.</p>
+                        </div>
+                        <div class="value-item">
+                            <h3>Sustainability</h3>
+                            <p>Committed to eco-friendly practices and ethical sourcing.</p>
+                        </div>
+                        <div class="value-item">
+                            <h3>Craftsmanship</h3>
+                            <p>We celebrate the art and tradition of textile manufacturing.</p>
+                        </div>
+                        <div class="value-item">
+                            <h3>Innovation</h3>
+                            <p>Constantly exploring new designs and weaving techniques.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="about-image">⚙️</div>
+            </div>
+
+            <div style="background: var(--light-bg); padding: 2rem; border-radius: 8px; margin-top: 3rem; text-align: center;">
+                <h3 style="color: var(--primary); font-family: 'Playfair Display', serif; font-size: 1.5rem; margin-bottom: 1rem;">Why Choose Us?</h3>
+                <p>With access to exclusive mills and artisans, we offer fabrics you won't find anywhere else. Our expert team is passionate about helping you find the perfect textile for your vision.</p>
+            </div>
+        </section>
+    </div>
+
+    <!-- CONTACT PAGE -->
+    <div id="contact" class="page">
+        <section class="contact-section">
+            <h2 class="section-title">Get In Touch</h2>
+
+            <div class="contact-grid">
+                <div class="contact-info">
+                    <div class="contact-item">
+                        <h3>📍 Address</h3>
+                        <p>123 Textile Avenue<br>Design District<br>New York, NY 10001</p>
+                    </div>
+
+                    <div class="contact-item">
+                        <h3>📞 Phone</h3>
+                        <p>+1 (555) 123-4567</p>
+                    </div>
+
+                    <div class="contact-item">
+                        <h3>📧 Email</h3>
+                        <p><a href="mailto:info@luxefabrics.com" style="color: var(--primary); text-decoration: none;">info@luxefabrics.com</a></p>
+                    </div>
+
+                    <div class="contact-item">
+                        <h3>🕐 Hours</h3>
+                        <p>Monday - Friday: 9:00 AM - 6:00 PM<br>Saturday: 10:00 AM - 4:00 PM<br>Sunday: Closed</p>
+                    </div>
+                </div>
+
+                <form class="contact-form" onsubmit="handleSubmit(event)">
+                    <div class="form-group">
+                        <label for="name">Full Name</label>
+                        <input type="text" id="name" name="name" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="email">Email Address</label>
+                        <input type="email" id="email" name="email" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="subject">Subject</label>
+                        <input type="text" id="subject" name="subject" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="message">Message</label>
+                        <textarea id="message" name="message" required></textarea>
+                    </div>
+
+                    <button type="submit" class="submit-btn">Send Message</button>
+                </form>
+            </div>
+        </section>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <p>&copy; 2024 Luxe Fabrics. All rights reserved. | Premium Textiles & Fabrics</p>
+    </footer>
+
+    <script>
+        // Page Navigation
+        function showPage(pageId) {
+            // Hide all pages
+            const pages = document.querySelectorAll('.page');
+            pages.forEach(page => page.classList.remove('active'));
+
+            // Remove active class from all nav links
+            const navLinks = document.querySelectorAll('.nav-link');
+            navLinks.forEach(link => link.classList.remove('active'));
+
+            // Show selected page
+            document.getElementById(pageId).classList.add('active');
+
+            // Add active class to corresponding nav link
+            const activeLink = document.querySelector(`[data-page="${pageId}"]`);
+            if (activeLink) {
+                activeLink.classList.add('active');
+            }
+
+            // Scroll to top
+            window.scrollTo(0, 0);
+        }
+
+        // Navigation link click handlers
+        document.querySelectorAll('.nav-link').forEach(link => {
+            link.addEventListener('click', (e) => {
+                e.preventDefault();
+                const pageId = link.dataset.page;
+                showPage(pageId);
+            });
+        });
+
+        // Form submission
+        function handleSubmit(event) {
+            event.preventDefault();
+            const name = document.getElementById('name').value;
+            const email = document.getElementById('email').value;
+            const subject = document.getElementById('subject').value;
+            const message = document.getElementById('message').value;
+
+            // Show confirmation (in a real website, this would send to a server)
+            alert(`Thank you, ${name}! Your message has been received. We'll get back to you at ${email} shortly.`);
+
+            // Reset form
+            document.querySelector('.contact-form').reset();
+        }
+    </script>
+</body>
+</html>
